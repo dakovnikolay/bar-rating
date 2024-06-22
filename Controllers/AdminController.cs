@@ -98,34 +98,73 @@ public class AdminController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateBar(Bar model, IFormFile imageFile)
+    public async Task<IActionResult> CreateBar(BarViewModel model)
     {
         if (ModelState.IsValid)
         {
-            if (imageFile != null && imageFile.Length > 0)
+            try
             {
-                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", imageFile.FileName);
-                using (var stream = new FileStream(imagePath, FileMode.Create))
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
-                    await imageFile.CopyToAsync(stream);
+                    var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", model.ImageFile.FileName);
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+                    model.Image = $"/images/{model.ImageFile.FileName}"; // Save the URL relative to the web root
                 }
-                model.Image = $"/images/{imageFile.FileName}"; // Save the URL relative to the web root
-            }
 
-            await _barService.CreateBarAsync(model);
-            return RedirectToAction("Index", "Admin");
+                var bar = new Bar
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Image = model.Image
+                };
+
+                await _barService.CreateBarAsync(bar);
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "An error occurred while uploading the image. Please try again.");
+            }
         }
-        return RedirectToAction("Index", "Admin");
+        return View(model); 
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditBar(Bar model)
+    public async Task<IActionResult> EditBar(BarViewModel model)
     {
-        if (ModelState.IsValid)
+        try
         {
-            await _barService.UpdateBarAsync(model);
-            return RedirectToAction("Index", "Admin");
+            if (ModelState.IsValid)
+            {
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", model.ImageFile.FileName);
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+                    model.Image = $"/images/{model.ImageFile.FileName}"; // Save the URL relative to the web root
+                }
+
+                var bar = new Bar
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                    Image = model.Image
+                };
+
+                await _barService.UpdateBarAsync(bar);
+                return RedirectToAction("Index", "Admin");
+            }
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", "An error occurred while uploading the image. Please try again.");
         }
         return RedirectToAction("Index", "Admin");
     }
