@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+body {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+header {
+    background-color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+    position: relative;
+}
+
+nav ul li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    height: 100%;
+    width: 1px;
+    background-color: #000;
+}
+
+nav ul li a {
+    text-decoration: underline;
+    color: #007bff;
+    font-size: 2em;
+}
+
+nav ul li a.active {
+    text-decoration: none;
+    color: #000;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    /* Margin from navigation to the first section */
+}
+
+.register-form-container,
+.login-form-container,
+.admin-form-container {
+    position: relative;
+    border: 1px solid #000;
+    width: 550px;
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 40px;
+    /* Space between sections */
+}
+
+.register-form-container h2,
+.login-form-container h2,
+.admin-form-container h2 {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.login-form-container {
+    width: 300px;
+    padding: 20px 80px;
+}
+
+.form-group {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group .column {
+    width: 44%;
+    margin-right: 6%;
+}
+
+.form-group .column:last-child {
+    margin-right: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    width: auto;
+    font-size: 1.5em;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+.admin-form-container .stats {
+    margin-bottom: 20px;
+}
+
+.admin-form-container .stats p {
+    font-size: 1.5em;
+}
+
+.admin-form-container .manage-section {
+    margin-bottom: 40px;
+}
+
+.admin-form-container .manage-section h3 {
+    margin-top: 0;
+    font-size: 1.8em;
+}
+
+.admin-form-container .manage-section form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.admin-form-container .manage-section form label {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.admin-form-container .manage-section form input,
+.admin-form-container .manage-section form textarea,
+.admin-form-container .manage-section form button {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.admin-form-container .manage-section form button {
+    align-self: flex-start;
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.admin-form-container .manage-section form button:hover {
+    background-color: #f0f0f0;
+}
+
+.manage-section select {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1em;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.manage-section .actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.manage-section .actions button {
+    padding: 10px;
+    font-size: 1em;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.gallery-container {
+    padding: 20px;
+}
+
+.bar-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.bar-card {
+    border: 1px solid #000;
+    width: 300px;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s;
+}
+
+.bar-card:hover {
+    transform: scale(1.05);
+}
+
+.bar-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.view-details-button {
+    display: block;
+    text-decoration: none;
+    margin: 20px auto 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    width: auto;
+    font-size: 1.5em;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.view-details-button:hover {
+    background-color: #f0f0f0;
+}
+
+.review-form,
+.edit-review-form {
+    margin-top: 20px;
+    border: 1px solid #000;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.review-form .form-group,
+.edit-review-form .form-group {
+    margin-bottom: 15px;
+}
+
+.review-form label,
+.edit-review-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.review-form select,
+.edit-review-form select,
+review-form textarea,
+.edit-review-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.review-form textarea,
+.edit-review-form textarea {
+    height: 100px;
+    width: 100%;
+}
+
+.reviews-container {
+    margin-top: 40px;
+}
+
+.reviews-container h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.review {
+    border: 1px solid #000;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}

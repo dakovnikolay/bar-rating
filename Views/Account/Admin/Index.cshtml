@@ -1,0 +1,98 @@
+@model AdminViewModel
+
+<section class="admin-form-container">
+    <h2>User Stats</h2>
+    <div class="stats">
+        <p>Number of Bars: <span id="bar-count">@Model.BarCount</span></p>
+        <p>Number of Users: <span id="user-count">@Model.UserCount</span></p>
+        <p>Number of Reviews: <span id="review-count">@Model.ReviewCount</span></p>
+    </div>
+</section>
+
+<section class="admin-form-container">
+    <h2>Manage Users</h2>
+    <div class="manage-section">
+        <form asp-action="CreateUser" asp-controller="Admin" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="firstName" required>
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="lastName" required>
+            <button type="submit">Create User</button>
+        </form>
+        <div>
+            <label for="user-select">Select User</label>
+            <select id="user-select">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.Id">@user.UserName</option>
+                }
+            </select>
+            <div class="actions">
+                <form id="edit-delete-user-form" method="post">
+                    <input type="hidden" id="selected-user-id" name="userId" value="">
+                    <button type="submit" formaction="@Url.Action("EditUser", "Admin")">Edit</button>
+                    <button type="submit" formaction="@Url.Action("DeleteUser", "Admin")"
+                            onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="admin-form-container">
+    <h2>Manage Bars</h2>
+    <div class="manage-section">
+    <form asp-action="CreateBar" asp-controller="Admin" method="post" enctype="multipart/form-data">
+        <label for="bar-name">Bar Name</label>
+        <input type="text" id="bar-name" name="name" maxlength="64" required>
+        <label for="bar-description">Description</label>
+        <textarea id="bar-description" name="description" maxlength="255" required></textarea>
+        <label for="bar-image">Image</label>
+        <input type="file" id="bar-image" name="imageFile" accept="image/*" required>
+        <button type="submit">Create Bar</button>
+    </form>
+        <div>
+            <label for="bar-select">Select Bar</label>
+            <select id="bar-select">
+                @foreach (var bar in Model.Bars)
+                {
+                    <option value="@bar.Id">@bar.Name</option>
+                }
+            </select>
+            <div class="actions">
+                <form id="edit-delete-bar-form" method="post">
+                    <input type="hidden" name="barId" id="selected-bar-id">
+                    <button type="submit" formaction="@Url.Action("EditBar", "Admin")">Edit</button>
+                    <button type="submit" formaction="@Url.Action("DeleteBar", "Admin")"
+                            onclick="return confirm('Are you sure you want to delete this bar?');">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.getElementById('user-select').addEventListener('change', function() {
+        document.getElementById('selected-user-id').value = this.value;
+    });
+
+    document.getElementById('bar-select').addEventListener('change', function() {
+        document.getElementById('selected-bar-id').value = this.value;
+    });
+
+    function setFormAction(action) {
+        var form = document.getElementById('user-form');
+        var userId = document.getElementById('selected-user-id').value;
+        if (action === 'edit') {
+            form.action = '@Url.Action("EditUser", "Admin")?userId=' + userId;
+        } else if (action === 'delete') {
+            form.action = '@Url.Action("DeleteUser", "Admin")?userId=' + userId;
+        }
+        return true;
+    }
+</script>

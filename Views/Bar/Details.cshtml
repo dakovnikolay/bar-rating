@@ -1,0 +1,71 @@
+@using BarRating.Data.ViewModels
+@model BarDetailsViewModel  
+
+<section class="bar-details-container">
+    <h2>@Model.Bar.Name</h2>
+    <img src="@Model.Bar.Image" alt="@Model.Bar.Name" class="bar-image" />
+    <p>@Model.Bar.Description</p>
+
+    @if (!Model.UserHasReviewed)
+    {
+        <form asp-controller="Bar" asp-action="AddReview" method="post" class="review-form">
+            <input type="hidden" name="BarId" value="@Model.Bar.Id" />
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" name="comment" required></textarea>
+            </div>
+            <button type="submit">Post Review</button>
+        </form>
+    }
+
+    <section class="reviews-container">
+        <h3>Reviews</h3>
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="review">
+                <p><i>User:</i> @review.User.UserName</p>
+                <p><i>Rating:</i> @review.Rating/5 Stars</p>
+                <p><i>Review:</i> @review.Comment</p>
+
+                @if (User.Identity.IsAuthenticated && User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value == review.UserId)
+                {
+                    <form asp-controller="Bar" asp-action="EditReview" method="post" class="edit-review-form">
+                        <input type="hidden" name="reviewId" value="@review.Id" />
+                        <div class="form-group">
+                            <label for="editRating-@review.Id">Edit Rating</label>
+                            <select id="editRating-@review.Id" name="editRating" required>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (review.Rating == i)
+                                    {
+                                        <option value="@i" selected>@i Star@(i > 1 ? "s" : "")</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i Star@(i > 1 ? "s" : "")</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editComment-@review.Id">Edit Comment</label>
+                            <textarea id="editComment-@review.Id" name="editComment" required>@review.Comment</textarea>
+                        </div>
+                        <button type="submit">Edit Review</button>
+                        <button formaction="@Url.Action("DeleteReview", "Bar", new { reviewId = review.Id, barId = Model.Bar.Id })" type="submit">Delete</button>
+                    </form>
+                }
+            </div>
+        }
+    </section>
+</section>
