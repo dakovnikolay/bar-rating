@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Bar> 
+
+<div class="gallery-container">
+    <h1>Welcome to the Bar Gallery</h1>
+    <div class="bar-gallery">
+        @foreach (var bar in Model)
+        {
+            <div class="bar-card">
+                <img src="@bar.Image" alt="@bar.Name" class="bar-image">
+                <h2>@bar.Name</h2>
+                <p>@bar.Description</p>
+                <a asp-controller="Bar" asp-action="Details" asp-route-id="@bar.Id" class="view-details-button">View Details</a>
+            </div>
+        }
+    </div>
+</div>

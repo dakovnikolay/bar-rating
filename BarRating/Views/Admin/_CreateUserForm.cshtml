@@ -1,0 +1,38 @@
+﻿@model BarRating.Models.ViewModels.UserViewModel
+
+<form asp-action="CreateUser" asp-controller="Admin" method="post" id="user-form">
+    <input type="hidden" asp-for="Id" id="user-Id" />
+    <input type="hidden" id="selected-user-id" name="userId" value="" />
+    <label for="username">Username</label>
+    <input type="text" asp-for="Username" required id="username" />
+    <label for="password">Password</label>
+    <input type="password" asp-for="Password" id="password" />
+    <label for="first-name">First Name</label>
+    <input type="text" asp-for="FirstName" required id="first-name" />
+    <label for="last-name">Last Name</label>
+    <input type="text" asp-for="LastName" required id="last-name" />
+    <button type="submit" id="user-submit-button">Create User</button>
+    <button type="submit" formaction="@Url.Action("DeleteUser", "Admin")" id="delete-user-button" style="display: none;" onclick="setUserDeleteFormAction(); return confirm('Are you sure you want to delete this user?');">Delete</button>
+</form>
+
+@* @model BarRating.Models.ViewModels.UserViewModel
+
+<form asp-action="CreateUser" asp-controller="Admin" method="post" id="user-form">
+    <input type="hidden" asp-for="Id" id="user-Id" />
+    <label for="username">Username</label>
+    <input type="text" asp-for="Username" required id="username" />
+    <label for="password">Password</label>
+    @if (Model.Id != null)
+    {
+        <input type="password" asp-for="Password" id="password" disabled />
+    }
+    else
+    {
+        <input type="password" asp-for="Password" id="password" />
+    }
+    <label for="first-name">First Name</label>
+    <input type="text" asp-for="FirstName" required id="first-name" />
+    <label for="last-name">Last Name</label>
+    <input type="text" asp-for="LastName" required id="last-name" />
+    <button type="submit" id="user-submit-button">Create User</button>
+</form> *@

@@ -1,0 +1,57 @@
+﻿@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Cocktail Bar Rating</title>
+    <link rel="stylesheet" href="~/css/platform.css">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"
+                       class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")">Home</a>
+                </li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a asp-controller="Account" asp-action="Login"
+                           class="@(currentController == "Account" && currentAction == "Login" ? "active" : "")">Login</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="Register"
+                           class="@(currentController == "Account" && currentAction == "Register" ? "active" : "")">Register</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#" onclick="document.getElementById('logout-form').submit();" style="cursor:pointer;">Logout</a>
+                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-controller="Admin" asp-action="Index"
+                               class="@(currentController == "Admin" && currentAction == "Index" ? "active" : "")">Admin</a>
+                        </li>
+                    }
+                }
+            </ul>
+            <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;">
+                @Html.AntiForgeryToken()
+            </form>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

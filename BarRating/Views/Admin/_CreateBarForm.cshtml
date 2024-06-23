@@ -1,0 +1,27 @@
+﻿@model BarRating.Models.ViewModels.BarViewModel
+
+<form asp-action="CreateBar" asp-controller="Admin" method="post" enctype="multipart/form-data" id="bar-form">
+    <input type="hidden" asp-for="Id" id="bar-Id" />
+    <input type="hidden" id="selected-bar-id" name="barId" value="" />
+    <label for="bar-name">Bar Name</label>
+    <input type="text" asp-for="Name" required id="bar-name" />
+    <label for="bar-description">Description</label>
+    <textarea asp-for="Description" required id="bar-description"></textarea>
+    <label for="bar-image">Image</label>
+    <input type="file" asp-for="ImageFile" accept="image/*" id="bar-image" />
+    <button type="submit" id="bar-submit-button">Create Bar</button>
+    <button type="submit" formaction="@Url.Action("DeleteBar", "Admin")" id="delete-bar-button" style="display: none;" onclick="setBarDeleteFormAction(); return confirm('Are you sure you want to delete this bar?');">Delete</button>
+</form>
+
+@* @model BarRating.Models.ViewModels.BarViewModel
+
+<form asp-action="CreateBar" asp-controller="Admin" method="post" enctype="multipart/form-data" id="bar-form">
+    <input type="hidden" asp-for="Id" id="bar-Id" />
+    <label for="bar-name">Bar Name</label>
+    <input type="text" asp-for="Name" required id="bar-name" />
+    <label for="bar-description">Description</label>
+    <textarea asp-for="Description" required id="bar-description"></textarea>
+    <label for="bar-image">Image</label>
+    <input type="file" asp-for="ImageFile" accept="image/*" id="bar-image" />
+    <button type="submit" id="bar-submit-button">Create Bar</button>
+</form> *@
