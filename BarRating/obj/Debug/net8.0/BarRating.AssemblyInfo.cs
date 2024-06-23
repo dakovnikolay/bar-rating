@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BarRating")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+990f34377a6c438025986f8980e0932f7cebb802")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5eab6dfd9664e3e1d27010cc16ae90fb35fa320")]
 [assembly: System.Reflection.AssemblyProductAttribute("BarRating")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BarRating")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
